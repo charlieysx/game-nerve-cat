@@ -51,6 +51,11 @@ class GameData {
             barrierNumber: 16,
             row: 10,
             col: 10
+        },
+        {
+            barrierNumber: 14,
+            row: 10,
+            col: 10
         }
     ]
     /**
