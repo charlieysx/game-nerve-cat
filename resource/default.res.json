@@ -1,0 +1,100 @@
+{
+	"groups": [
+		{
+			"keys": "description_json,success_mp3,go_mp3,fail_mp3,bg_jpg,btn_replay_png,btn_start_png,cat_loser_json,cat_loser_png,cat_normal_json,cat_normal_png,cat_start_bg_png,end_tip_fail_png,end_tip_success_png,grid_white_png,grid_yellow_png,btn_next_png,btn_back_png",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"name": "description_json",
+			"type": "json",
+			"url": "config/description.json"
+		},
+		{
+			"name": "success_mp3",
+			"type": "sound",
+			"url": "assets/audio/success.mp3"
+		},
+		{
+			"name": "go_mp3",
+			"type": "sound",
+			"url": "assets/audio/go.mp3"
+		},
+		{
+			"name": "fail_mp3",
+			"type": "sound",
+			"url": "assets/audio/fail.mp3"
+		},
+		{
+			"name": "bg_jpg",
+			"type": "image",
+			"url": "assets/img/bg.jpg"
+		},
+		{
+			"name": "btn_replay_png",
+			"type": "image",
+			"url": "assets/img/btn_replay.png"
+		},
+		{
+			"name": "btn_start_png",
+			"type": "image",
+			"url": "assets/img/btn_start.png"
+		},
+		{
+			"name": "cat_loser_json",
+			"type": "json",
+			"url": "assets/img/cat_loser.json"
+		},
+		{
+			"name": "cat_loser_png",
+			"type": "image",
+			"url": "assets/img/cat_loser.png"
+		},
+		{
+			"name": "cat_normal_json",
+			"type": "json",
+			"url": "assets/img/cat_normal.json"
+		},
+		{
+			"name": "cat_normal_png",
+			"type": "image",
+			"url": "assets/img/cat_normal.png"
+		},
+		{
+			"name": "cat_start_bg_png",
+			"type": "image",
+			"url": "assets/img/cat_start_bg.png"
+		},
+		{
+			"name": "end_tip_fail_png",
+			"type": "image",
+			"url": "assets/img/end_tip_fail.png"
+		},
+		{
+			"name": "end_tip_success_png",
+			"type": "image",
+			"url": "assets/img/end_tip_success.png"
+		},
+		{
+			"name": "grid_white_png",
+			"type": "image",
+			"url": "assets/img/grid_white.png"
+		},
+		{
+			"name": "grid_yellow_png",
+			"type": "image",
+			"url": "assets/img/grid_yellow.png"
+		},
+		{
+			"name": "btn_next_png",
+			"type": "image",
+			"url": "assets/img/btn_next.png"
+		},
+		{
+			"name": "btn_back_png",
+			"type": "image",
+			"url": "assets/img/btn_back.png"
+		}
+	]
+}
