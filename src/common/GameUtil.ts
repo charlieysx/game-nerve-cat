@@ -42,14 +42,18 @@ class GameUtil {
         bitmap.touchEnabled = true
         // 记录当前位置
         const source: Point = new Point(bitmap.x, bitmap.y)
+        // 记录原来的锚点
+        const sourceAnchor: Point = new Point(bitmap.anchorOffsetX, bitmap.anchorOffsetY)
         // 监听触摸事件
         bitmap.addEventListener(egret.TouchEvent.TOUCH_BEGIN, ()=> {
             // 改变按钮的锚点
             bitmap.anchorOffsetX = bitmap.width / 2
             bitmap.anchorOffsetY = bitmap.height / 2
-            // 改变按钮位置（因为锚点改变了）
-            bitmap.x = source.x + bitmap.width / 2
-            bitmap.y = source.y + bitmap.height / 2
+            // 如果改变后的锚点和原来的不一样，那就需要改变按钮位置
+            if (!new Point(bitmap.anchorOffsetX, bitmap.anchorOffsetY).equal(sourceAnchor)) {
+                bitmap.x = source.x + bitmap.anchorOffsetX
+                bitmap.y = source.y + bitmap.anchorOffsetY
+            }
             // 缩放
             bitmap.scaleX = 0.95
             bitmap.scaleY = 0.95
@@ -64,8 +68,8 @@ class GameUtil {
         bitmap.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, reset, this)
 
         function reset() {
-            bitmap.anchorOffsetX = 0
-            bitmap.anchorOffsetY = 0
+            bitmap.anchorOffsetX = sourceAnchor.x
+            bitmap.anchorOffsetY = sourceAnchor.y
             bitmap.x = source.x
             bitmap.y = source.y
             bitmap.scaleX = 1
