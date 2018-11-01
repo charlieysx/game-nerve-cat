@@ -119,33 +119,39 @@ class Cat extends egret.Sprite {
     private search(): SearchResult {
         // 记录每个格子走到的最小步数
         let temp: Array<Array<number>> = new Array(GameData.row)
+        // 初始化每个格子的步数记录为最大数值
         for(let i = 0;i < GameData.row;++i) {
             temp[i] = new Array<number>(GameData.col)
             for(let j = 0;j < GameData.col;++j) {
                 temp[i][j] = Number.MAX_VALUE
             }
         }
+        // 获取第一步可走的位置
         let firstStepList = this.getFirstStep()
         let list: Array<RunPath> = new Array<RunPath>()
+        // 存放到路径列表中
         firstStepList.forEach(item=> {
             temp[item.x][item.y] = 1
             list.push(item.copy())
         })
+        // 记录最少步数，初始化为最大数值
         let minStep = Number.MAX_VALUE
+        // 存放路径集合
         let result: Point[] = new Array<Point>()
         while(list.length) {
             let current: RunPath = list.shift()
             // 猫到达边界
             if (current.x === 0 || current.y === 0 || current.x === GameData.row - 1 || current.y === GameData.col - 1) {
-                if (current.step < minStep) {
+                if (current.step < minStep) { // 如果当前步数少于最少步数，那么把之前记录的路径集合清掉，保存当前记录
                     result = new Array<Point>()
                     result.push(current.firstStep.copy())
                     minStep = current.step
-                } else if (current.step === minStep) {
+                } else if (current.step === minStep) { // 如果相等，那么添加进路径集合
                     result.push(current.firstStep.copy())
                 }
                 continue
             }
+            // 获取当前位置的可走方向（因为单双行缩进不一样导致数组下标不一样，所以需要根据行数获取可走方向）
             let dir = this.getDir(current.x)
             for(let i = 0;i < dir.length;++i) {
                 let t: RunPath = new RunPath(current.x, current.y)
@@ -185,6 +191,7 @@ class Cat extends egret.Sprite {
             let index = Math.floor(Math.random() * list.length)
             nextResult.nextStep = list[index]
         } else {
+            // 没有路可走，那就走当前坐标（外部判断为当前坐标就知道猫走不了输了）
             nextResult.nextStep = this.index
         }
         return nextResult
@@ -204,6 +211,7 @@ class Cat extends egret.Sprite {
                 }
             }
             if (index > -1) {
+                // 计数
                 sort[index].count++
             } else {
                 sort.push({
@@ -213,7 +221,7 @@ class Cat extends egret.Sprite {
                 })
             }
         })
-        // 从多到少排序
+        // 从多到少排序，数量多的就是走这一步之后有更多的路径方向可以走
         sort.sort((a, b)=> {
             return b.count - a.count
         })

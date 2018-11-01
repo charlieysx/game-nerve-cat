@@ -45,15 +45,19 @@ class PlayScene extends BaseScene implements PlayListener {
 
     private createGridNode() {
         GameData.gridNodeList = new Array<Array<any>>(GameData.row)
+        // 根据屏幕宽度和定义的列数和格子边距计算格子的代销
         let gridNodeSize = GameUtil.getStageWidth() / (GameData.row + 1) - GameData.gridMargin
         for(let i = 0;i < GameData.row;++i) {
             GameData.gridNodeList[i] = new Array<GridNode>(GameData.col)
             let indent = (i % 2) * (gridNodeSize / 2) // 偶数行缩进
             for(let j = 0;j < GameData.col;++j) {
+                // i，j在数组中的下标，x，y为在舞台上的坐标
                 let x = indent + j * (gridNodeSize + GameData.gridMargin)
                 let y = i * gridNodeSize
                 GameData.gridNodeList[i][j] = new GridNode(new Point(i, j), new Point(x, y), gridNodeSize, this)
+                // 都初始化为有效状态
                 GameData.gridNodeList[i][j].setStatus(GridNodeStatus.AVAILABLE)
+                // 添加到游戏场景中
                 this.addChild(GameData.gridNodeList[i][j])
             }
         }

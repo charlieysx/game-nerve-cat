@@ -20,6 +20,9 @@ class SceneController {
         this.endScene = new EndScene()
     }
 
+    /**
+     * 设置存放游戏场景的容器
+     */
     public setStage(stage: egret.DisplayObjectContainer) {
         this._stage = stage
     }
@@ -30,13 +33,16 @@ class SceneController {
     public static initGame() {
         let stage: egret.DisplayObjectContainer = this.instance._stage
         if (this.instance.playScene.parent) {
+            // 如果有游戏场景，移除掉
             stage.removeChild(this.instance.playScene)
             this.instance.playScene = new PlayScene()
         }
         if (this.instance.endScene.parent) {
+            // 如果有结束场景，移除掉
             stage.removeChild(this.instance.endScene)
             this.instance.endScene = new EndScene()
         }
+        // 添加开始场景
         stage.addChild(this.instance.startScene)
     }
 
@@ -58,12 +64,14 @@ class SceneController {
             this.instance.playScene = new PlayScene()
         }
         let level = GameData.level
-        if (level >= GameData.levelData.length) {
+        if (level >= GameData.levelData.length) { // 关卡超过已有的，那就直接用最后一关（也就是到了后面难度都是几乎一样的），避免数组越界
             level = GameData.levelData.length - 1
         }
+        // 设置关卡对应的数据
         GameData.barrierNumber = GameData.levelData[level].barrierNumber
         GameData.row = GameData.levelData[level].row
         GameData.col = GameData.levelData[level].col
+        // 重置游戏步数为0
         GameData.step = 0
         GameData.overType = OverType.NULL
         stage.addChild(this.instance.playScene)

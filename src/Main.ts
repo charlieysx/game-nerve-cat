@@ -88,8 +88,18 @@ class Main extends egret.DisplayObjectContainer {
 
         let bg: egret.Bitmap = GameUtil.createBitmapByName('bg', 'jpg')
         container.addChild(bg)
-        bg.width = GameUtil.getStageWidth()
-        bg.height = GameUtil.getStageHeight()
+        // 因为使用了fixedWide模式，自己根据舞台宽高，重新设置背景图片大小（会被裁剪）
+        let ratioW = GameUtil.getStageWidth() / bg.width
+        let ratioH = GameUtil.getStageHeight() / bg.height
+        let ratio = bg.width / bg.height
+        if (ratioW > ratioH) {
+            bg.width = GameUtil.getStageWidth()
+            bg.height = bg.width / ratio
+        } else {
+            bg.height = GameUtil.getStageHeight()
+            bg.width = bg.height * ratio
+        }
+        bg.x = (GameUtil.getStageWidth() - bg.width) / 2
 
         SceneController.instance.setStage(container)
         SceneController.initGame()

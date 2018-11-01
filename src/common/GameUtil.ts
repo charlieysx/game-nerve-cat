@@ -32,6 +32,7 @@ class GameUtil {
     public static createMovieClipByName(name:string): egret.MovieClip {
 
         let data_stay: any = RES.getRes(name + "_json")
+        console.log(data_stay)
         let texture_stay: egret.Texture = RES.getRes(name + "_png")
         let mcFactory_stay: egret.MovieClipDataFactory = new egret.MovieClipDataFactory(data_stay, texture_stay)
         return new egret.MovieClip(mcFactory_stay.generateMovieClipData(name))
@@ -39,12 +40,17 @@ class GameUtil {
 
     public static bitmapToBtn(bitmap: egret.Bitmap, callback) {
         bitmap.touchEnabled = true
+        // 记录当前位置
         const source: Point = new Point(bitmap.x, bitmap.y)
+        // 监听触摸事件
         bitmap.addEventListener(egret.TouchEvent.TOUCH_BEGIN, ()=> {
+            // 改变按钮的锚点
             bitmap.anchorOffsetX = bitmap.width / 2
             bitmap.anchorOffsetY = bitmap.height / 2
+            // 改变按钮位置（因为锚点改变了）
             bitmap.x = source.x + bitmap.width / 2
             bitmap.y = source.y + bitmap.height / 2
+            // 缩放
             bitmap.scaleX = 0.95
             bitmap.scaleY = 0.95
         }, this)
