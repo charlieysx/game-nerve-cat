@@ -104,7 +104,7 @@ class Cat extends egret.Sprite {
             if (this.gridNode) {
                 this.gridNode.setStatus(GridNodeStatus.AVAILABLE)
             }
-            this.gridNode = GameData.gridNodeList[nextStep.x][nextStep.y]
+            this.gridNode = n.GameData.gridNodeList[nextStep.x][nextStep.y]
             this.gridNode.setStatus(GridNodeStatus.CAT)
             this.index = nextStep
             this.x = this.gridNode.x + (this.gridNode.width - this.bg.width) / 2
@@ -118,11 +118,11 @@ class Cat extends egret.Sprite {
     
     private search(): SearchResult {
         // 记录每个格子走到的最小步数
-        let temp: Array<Array<number>> = new Array(GameData.row)
+        let temp: Array<Array<number>> = new Array(n.GameData.row)
         // 初始化每个格子的步数记录为最大数值
-        for(let i = 0;i < GameData.row;++i) {
-            temp[i] = new Array<number>(GameData.col)
-            for(let j = 0;j < GameData.col;++j) {
+        for(let i = 0;i < n.GameData.row;++i) {
+            temp[i] = new Array<number>(n.GameData.col)
+            for(let j = 0;j < n.GameData.col;++j) {
                 temp[i][j] = Number.MAX_VALUE
             }
         }
@@ -141,7 +141,7 @@ class Cat extends egret.Sprite {
         while(list.length) {
             let current: RunPath = list.shift()
             // 猫到达边界
-            if (current.x === 0 || current.y === 0 || current.x === GameData.row - 1 || current.y === GameData.col - 1) {
+            if (current.x === 0 || current.y === 0 || current.x === n.GameData.row - 1 || current.y === n.GameData.col - 1) {
                 if (current.step < minStep) { // 如果当前步数少于最少步数，那么把之前记录的路径集合清掉，保存当前记录
                     result = new Array<Point>()
                     result.push(current.firstStep.copy())
@@ -159,11 +159,11 @@ class Cat extends egret.Sprite {
                 t.y += dir[i][1]
                 t.step = current.step + 1
                 // 越界
-                if (t.x < 0 || t.y < 0 || t.x === GameData.row || t.y === GameData.col) {
+                if (t.x < 0 || t.y < 0 || t.x === n.GameData.row || t.y === n.GameData.col) {
                     continue
                 }
                 // 有猫或有障碍物
-                if (GameData.gridNodeList[t.x][t.y].getStatus() !== GridNodeStatus.AVAILABLE) {
+                if (n.GameData.gridNodeList[t.x][t.y].getStatus() !== GridNodeStatus.AVAILABLE) {
                     continue
                 }
                 if (temp[t.x][t.y] > t.step) {
@@ -244,11 +244,11 @@ class Cat extends egret.Sprite {
             let x = this.index.x + dir[i][0]
             let y = this.index.y + dir[i][1]
             // 越界
-            if (x < 0 || y < 0 || x >= GameData.row || y >= GameData.col) {
+            if (x < 0 || y < 0 || x >= n.GameData.row || y >= n.GameData.col) {
                 continue
             }
             // 不可走
-            if (GameData.gridNodeList[x][y].getStatus() !== GridNodeStatus.AVAILABLE) {
+            if (n.GameData.gridNodeList[x][y].getStatus() !== GridNodeStatus.AVAILABLE) {
                 continue
             }
             let runPath: RunPath = new RunPath(x, y)

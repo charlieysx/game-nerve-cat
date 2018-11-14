@@ -9,7 +9,7 @@ class EndScene extends BaseScene {
         shp.touchEnabled = true
         this.addChild(shp)
 
-        switch(GameData.overType) {
+        switch(n.GameData.overType) {
             case OverType.PLAYER:
                 console.log('玩家赢')
                 this.initPlayerWin()
@@ -32,7 +32,7 @@ class EndScene extends BaseScene {
         info.textColor = 0xffffff
         info.strokeColor = 0x000000
         info.stroke = 2
-        info.text = `您花了${GameData.step}步抓住了神经猫`
+        info.text = `您花了${n.GameData.step}步抓住了神经猫`
         info.x = (bg.width - info.width) / 2 + bg.x
         info.y = (bg.height - info.height) / 2 + bg.y + 50
         this.addChild(info)
@@ -46,7 +46,7 @@ class EndScene extends BaseScene {
         nextBtn.y = bg.y + bg.height
         GameUtil.bitmapToBtn(nextBtn, ()=> {
             console.log('下一关卡')
-            GameData.level++
+            n.GameData.level++
             SceneController.showPlayScene()
         })
     }
@@ -63,7 +63,7 @@ class EndScene extends BaseScene {
         info.strokeColor = 0x000000
         info.stroke = 2
         info.lineSpacing = 10
-        info.text = `您坚持了${GameData.level}关\n还是让神经猫逃！跑！了！`
+        info.text = `您坚持了${n.GameData.level}关\n还是让神经猫逃！跑！了！`
         info.x = (bg.width - info.width) / 2 + bg.x
         info.y = (bg.height - info.height) / 2 + bg.y + 50
         this.addChild(info)
@@ -77,7 +77,7 @@ class EndScene extends BaseScene {
         backBtn.y = bg.y + bg.height
         GameUtil.bitmapToBtn(backBtn, ()=> {
             console.log('返回首页')
-            GameData.level = 0
+            n.GameData.level = 0
             SceneController.initGame()
         })
 
@@ -87,7 +87,7 @@ class EndScene extends BaseScene {
         replayBtn.y = bg.y + bg.height
         GameUtil.bitmapToBtn(replayBtn, ()=> {
             console.log('重新开始')
-            GameData.level = 0
+            n.GameData.level = 0
             SceneController.showPlayScene()
         })
     }

@@ -63,17 +63,17 @@ class SceneController {
             stage.removeChild(this.instance.playScene)
             this.instance.playScene = new PlayScene()
         }
-        let level = GameData.level
-        if (level >= GameData.levelData.length) { // 关卡超过已有的，那就直接用最后一关（也就是到了后面难度都是几乎一样的），避免数组越界
-            level = GameData.levelData.length - 1
+        let level = n.GameData.level
+        if (level >= n.GameData.levelData.length) { // 关卡超过已有的，那就直接用最后一关（也就是到了后面难度都是几乎一样的），避免数组越界
+            level = n.GameData.levelData.length - 1
         }
         // 设置关卡对应的数据
-        GameData.barrierNumber = GameData.levelData[level].barrierNumber
-        GameData.row = GameData.levelData[level].row
-        GameData.col = GameData.levelData[level].col
+        n.GameData.barrierNumber = n.GameData.levelData[level].barrierNumber
+        n.GameData.row = n.GameData.levelData[level].row
+        n.GameData.col = n.GameData.levelData[level].col
         // 重置游戏步数为0
-        GameData.step = 0
-        GameData.overType = OverType.NULL
+        n.GameData.step = 0
+        n.GameData.overType = OverType.NULL
         stage.addChild(this.instance.playScene)
     }
 
@@ -81,7 +81,7 @@ class SceneController {
      * 开始游戏时显示关卡
      */
     public static showLevelTip() {
-        let level: number = GameData.level + 1
+        let level: number = n.GameData.level + 1
         let stage: egret.DisplayObjectContainer = this.instance._stage
         // 背景容器
         let bg: egret.DisplayObjectContainer = new egret.DisplayObjectContainer()

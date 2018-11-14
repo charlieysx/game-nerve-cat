@@ -35,7 +35,7 @@ class PlayScene extends BaseScene implements PlayListener {
         this.sound = RES.getRes('go_mp3')
         this.catRunning = false
         this.createGridNode()
-        this.createBarrier(GameData.barrierNumber)
+        this.createBarrier(n.GameData.barrierNumber)
         this.createCat()
         this.x = (GameUtil.getStageWidth() - this.width) / 2
         this.y = GameUtil.getStageHeight() / 2.5
@@ -44,31 +44,31 @@ class PlayScene extends BaseScene implements PlayListener {
     }
 
     private createGridNode() {
-        GameData.gridNodeList = new Array<Array<any>>(GameData.row)
+        n.GameData.gridNodeList = new Array<Array<any>>(n.GameData.row)
         // 根据屏幕宽度和定义的列数和格子边距计算格子的代销
-        let gridNodeSize = GameUtil.getStageWidth() / (GameData.row + 1) - GameData.gridMargin
-        for(let i = 0;i < GameData.row;++i) {
-            GameData.gridNodeList[i] = new Array<GridNode>(GameData.col)
+        let gridNodeSize = GameUtil.getStageWidth() / (n.GameData.row + 1) - n.GameData.gridMargin
+        for(let i = 0;i < n.GameData.row;++i) {
+            n.GameData.gridNodeList[i] = new Array<GridNode>(n.GameData.col)
             let indent = (i % 2) * (gridNodeSize / 2) // 偶数行缩进
-            for(let j = 0;j < GameData.col;++j) {
+            for(let j = 0;j < n.GameData.col;++j) {
                 // i，j在数组中的下标，x，y为在舞台上的坐标
-                let x = indent + j * (gridNodeSize + GameData.gridMargin)
+                let x = indent + j * (gridNodeSize + n.GameData.gridMargin)
                 let y = i * gridNodeSize
-                GameData.gridNodeList[i][j] = new GridNode(new Point(i, j), new Point(x, y), gridNodeSize, this)
+                n.GameData.gridNodeList[i][j] = new GridNode(new Point(i, j), new Point(x, y), gridNodeSize, this)
                 // 都初始化为有效状态
-                GameData.gridNodeList[i][j].setStatus(GridNodeStatus.AVAILABLE)
+                n.GameData.gridNodeList[i][j].setStatus(GridNodeStatus.AVAILABLE)
                 // 添加到游戏场景中
-                this.addChild(GameData.gridNodeList[i][j])
+                this.addChild(n.GameData.gridNodeList[i][j])
             }
         }
     }
 
     private createBarrier(num: number) {
         while(num) {
-            let i = Math.floor(Math.random() * 100 % GameData.row)
-            let j = Math.floor(Math.random() * 100 % GameData.col)
-            let gridNode = GameData.gridNodeList[i][j]
-            if (i !== Math.floor(GameData.row / 2) && j !== Math.floor(GameData.col / 2) && gridNode.getStatus() === GridNodeStatus.AVAILABLE) {
+            let i = Math.floor(Math.random() * 100 % n.GameData.row)
+            let j = Math.floor(Math.random() * 100 % n.GameData.col)
+            let gridNode = n.GameData.gridNodeList[i][j]
+            if (i !== Math.floor(n.GameData.row / 2) && j !== Math.floor(n.GameData.col / 2) && gridNode.getStatus() === GridNodeStatus.AVAILABLE) {
                 gridNode.setStatus(GridNodeStatus.UNAVAILABLE)
                 num--
             }
@@ -76,8 +76,8 @@ class PlayScene extends BaseScene implements PlayListener {
     }
 
     private createCat() {
-        let i = Math.floor(GameData.row / 2)
-        let j = Math.floor(GameData.col / 2)
+        let i = Math.floor(n.GameData.row / 2)
+        let j = Math.floor(n.GameData.col / 2)
         this.cat = new Cat(this)
         this.addChild(this.cat)
         this.cat.move(new Point(i, j))
@@ -85,7 +85,7 @@ class PlayScene extends BaseScene implements PlayListener {
 
     public playerRun(index: Point) {
         this.sound.play(0, 1)
-        GameData.step++
+        n.GameData.step++
         this.catRunning = true
         this.cat.run()
     }
@@ -103,7 +103,7 @@ class PlayScene extends BaseScene implements PlayListener {
         }
         this.cat.move(nextStep)
         // 猫到达边界，猫赢
-        if (nextStep.x * nextStep.y === 0 || nextStep.x === GameData.row - 1 || nextStep.y === GameData.col - 1) {
+        if (nextStep.x * nextStep.y === 0 || nextStep.x === n.GameData.row - 1 || nextStep.y === n.GameData.col - 1) {
             this.gameOver(OverType.CAT)
             return
         }
@@ -115,7 +115,7 @@ class PlayScene extends BaseScene implements PlayListener {
     }
 
     public gameOver(type: OverType) {
-        GameData.overType = type
+        n.GameData.overType = type
         SceneController.showEndScene()
     }
 }

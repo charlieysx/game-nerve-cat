@@ -1,4 +1,5 @@
-class GameData {
+namespace n {
+export class GameData {
     /**
      * 游戏关卡
      */
@@ -8,7 +9,7 @@ class GameData {
      */
     public static levelData: Array<any> = [
         {
-            barrierNumber: 20,
+            barrierNumber: 10,
             row: 7,
             col: 7
         },
@@ -79,4 +80,6 @@ class GameData {
     public static col: number = 6
     // 格子的边距
     public static gridMargin: number = 10
+}
+    
 }
